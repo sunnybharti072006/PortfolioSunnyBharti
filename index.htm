@@ -607,7 +607,7 @@ header {
   border-radius: 20px;
 }
 
-/* Projects Section */
+/* Projects Section - FIXED */
 .projects { 
   background: var(--bg); 
   color:var(--text); 
@@ -641,9 +641,18 @@ header {
   border-radius: 10px;
 }
 
+.projects-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+}
+
 .project-card { 
-  width:100%; 
-  max-width:350px; 
+  width: 100%; 
+  max-width: 350px; 
   background:var(--card-bg); 
   padding:30px; 
   border-radius:var(--radius); 
@@ -1311,24 +1320,42 @@ main {
     </div>
   </section>
 
-  <!-- Projects -->
+  <!-- Projects - FIXED LAYOUT -->
   <section id="projects" class="projects">
     <h2>My Projects</h2>
-    <div class="project-card">
-      <div class="project-icon">
-        <i class="fas fa-music"></i>
+    <div class="projects-container">
+      <!-- Ping Chat App Project -->
+      <div class="project-card">
+        <div class="project-icon">
+          <i class="fas fa-comments"></i>
+        </div>
+        <h3><a href="ping-chat-app.html" target="_blank">💬 Ping Chat App</a></h3>
+        <p>An anonymous global chat application built with Kotlin and Firebase. Features real-time messaging, complete user anonymity, and built-in dark mode.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Kotlin</span>
+          <span class="tech-tag">Android</span>
+          <span class="tech-tag">Firebase</span>
+          <span class="tech-tag">XML</span>
+        </div>
       </div>
-      <h3><a href="music-app.html" target="_blank">🎧 Music Player App</a></h3>
-      <p>A custom-built music player with crossfade audio engine for enhanced listening experience. Features smooth transitions between tracks and beautiful Material Design UI.</p>
-      <div class="project-tech">
-        <span class="tech-tag">Kotlin</span>
-        <span class="tech-tag">Android</span>
-        <span class="tech-tag">Audio Processing</span>
-        <span class="tech-tag">Material Design</span>
+      
+      <!-- Music Player App Project -->
+      <div class="project-card">
+        <div class="project-icon">
+          <i class="fas fa-music"></i>
+        </div>
+        <h3><a href="music-app.html" target="_blank">🎧 Music Player App</a></h3>
+        <p>A custom-built music player with crossfade audio engine for enhanced listening experience. Features smooth transitions between tracks and beautiful Material Design UI.</p>
+        <div class="project-tech">
+          <span class="tech-tag">Kotlin</span>
+          <span class="tech-tag">Android</span>
+          <span class="tech-tag">Audio Processing</span>
+          <span class="tech-tag">Material Design</span>
+        </div>
       </div>
+      
+      <!-- You can add more project cards here in the future -->
     </div>
-    
-    <!-- You can add more project cards here in the future -->
   </section>
 
   <!-- Contact -->
@@ -1558,4 +1585,3 @@ if (heroSection) {
 
 </body>
 </html>
-
