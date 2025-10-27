@@ -21,7 +21,7 @@
             --text: #1E293B;
             --card-bg: #FFFFFF;
             --shadow: 0 10px 30px rgba(108, 99, 255, 0.15);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition: all 0.3s ease;
             --radius: 16px;
         }
 
@@ -42,16 +42,23 @@
             margin:0; 
             padding:0; 
             box-sizing:border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body { 
             font-family: 'Poppins', sans-serif; 
             background-color: var(--bg);
             color: var(--text);
-            scroll-behavior: smooth;
             overflow-x: hidden;
-            transition: var(--transition);
+            transition: background-color 0.3s ease, color 0.3s ease;
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         a { 
@@ -67,10 +74,10 @@
             display:flex; 
             justify-content:space-between; 
             align-items:center; 
-            padding:18px 5%; 
+            padding:15px 5%; 
             z-index:1000; 
             background:rgba(255,255,255,0.95); 
-            backdrop-filter:blur(15px); 
+            backdrop-filter:blur(12px); 
             transition: var(--transition);
             box-shadow: 0 5px 25px rgba(108, 99, 255, 0.1);
             border-bottom: 1px solid rgba(108, 99, 255, 0.08);
@@ -78,19 +85,18 @@
 
         .dark-mode header { 
             background: rgba(15, 23, 42, 0.95); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .logo { 
-            font-size:1.8rem; 
+            font-size:1.6rem; 
             font-weight:700; 
             color:var(--primary); 
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             transition: var(--transition);
-            padding: 8px 16px;
-            border-radius: 12px;
+            padding: 6px 12px;
+            border-radius: 10px;
             background: rgba(108, 99, 255, 0.05);
         }
 
@@ -103,12 +109,12 @@
             background: var(--gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
 
         .nav-links { 
             display:flex; 
-            gap:30px; 
+            gap:25px; 
             align-items: center;
         }
 
@@ -116,8 +122,8 @@
             font-weight:500; 
             transition:var(--transition); 
             position: relative;
-            padding: 10px 0;
-            font-size: 1.1rem;
+            padding: 8px 0;
+            font-size: 1rem;
         }
 
         .nav-links a::after {
@@ -126,7 +132,7 @@
             bottom: 0;
             left: 0;
             width: 0;
-            height: 3px;
+            height: 2px;
             background: var(--gradient-accent);
             border-radius: 10px;
             transition: var(--transition);
@@ -141,25 +147,24 @@
         }
 
         #mode-toggle { 
-            margin-left:20px; 
+            margin-left:15px; 
             cursor:pointer; 
             border:none; 
             background:none; 
-            font-size:1.3rem; 
+            font-size:1.2rem; 
             transition: var(--transition);
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
             color: white;
-            box-shadow: var(--shadow);
         }
 
         #mode-toggle:hover {
-            transform: rotate(15deg) scale(1.1);
+            transform: scale(1.1);
         }
 
         /* GitHub Button */
@@ -167,92 +172,49 @@
             position: relative;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            padding: 16px 32px;
+            gap: 10px;
+            padding: 14px 28px;
             background: var(--github-gradient);
             color: white;
             border-radius: 50px;
             font-weight: 600;
             transition: var(--transition);
             overflow: hidden;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-            margin: 20px 0;
+            margin: 15px 0;
             border: 2px solid transparent;
         }
 
-        .github-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: 0.6s;
-        }
-
-        .github-btn:hover::before {
-            left: 100%;
-        }
-
         .github-btn:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
-            border-color: rgba(255,255,255,0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
 
         .github-btn i {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             transition: var(--transition);
         }
 
         .github-btn:hover i {
-            transform: rotate(360deg) scale(1.2);
-        }
-
-        .github-btn .pulse {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: inherit;
-            border-radius: inherit;
-            opacity: 0;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            70% {
-                transform: scale(1.1);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0;
-            }
+            transform: rotate(360deg);
         }
 
         /* Floating GitHub Icon */
         .floating-github {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
+            bottom: 30px;
+            right: 30px;
             z-index: 1000;
             animation: float 3s ease-in-out infinite;
         }
 
         .floating-github .github-btn {
             margin: 0;
-            padding: 18px;
-            width: 70px;
-            height: 70px;
+            padding: 15px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .floating-github .github-btn span {
@@ -261,27 +223,27 @@
 
         @keyframes float {
             0% {
-                transform: translateY(0px) rotate(0deg);
+                transform: translateY(0px);
             }
             50% {
-                transform: translateY(-15px) rotate(5deg);
+                transform: translateY(-10px);
             }
             100% {
-                transform: translateY(0px) rotate(0deg);
+                transform: translateY(0px);
             }
         }
 
         /* Project Detail Section */
         .project-detail {
-            padding: 140px 5% 80px;
+            padding: 100px 5% 60px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
         .project-header {
             text-align: center;
-            margin-bottom: 80px;
-            padding: 100px 40px;
+            margin-bottom: 60px;
+            padding: 80px 30px;
             background: var(--gradient);
             border-radius: var(--radius);
             color: white;
@@ -290,47 +252,31 @@
             box-shadow: var(--shadow);
         }
 
-        .project-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.05"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
-        }
-
         .project-header-content {
             position: relative;
             z-index: 1;
         }
 
         .project-icon {
-            font-size: 6rem;
-            margin-bottom: 30px;
+            font-size: 5rem;
+            margin-bottom: 25px;
             color: white;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
             animation: bounce 2s infinite;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
         }
 
         .project-header h1 {
-            font-size: 4rem;
-            margin-bottom: 30px;
-            font-weight: 800;
-            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            font-weight: 700;
         }
 
         .project-header p {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             max-width: 800px;
             margin: 0 auto;
             opacity: 0.9;
@@ -340,14 +286,14 @@
 
         .github-section {
             text-align: center;
-            margin: 50px 0 20px;
+            margin: 40px 0 15px;
         }
 
         .project-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 80px;
+            gap: 40px;
+            margin-bottom: 60px;
         }
 
         @media (max-width: 968px) {
@@ -358,7 +304,7 @@
 
         .project-features, .project-tech {
             background: var(--card-bg);
-            padding: 50px 40px;
+            padding: 35px 30px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
             transition: var(--transition);
@@ -378,13 +324,13 @@
         }
 
         .project-features:hover, .project-tech:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 25px 50px rgba(108, 99, 255, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.15);
         }
 
         .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
+            font-size: 2rem;
+            margin-bottom: 30px;
             color: var(--primary);
             position: relative;
             display: inline-block;
@@ -394,10 +340,10 @@
         .section-title::after {
             content: '';
             position: absolute;
-            bottom: -15px;
+            bottom: -12px;
             left: 0;
-            width: 80px;
-            height: 6px;
+            width: 60px;
+            height: 4px;
             background: var(--gradient-accent);
             border-radius: 10px;
         }
@@ -409,29 +355,12 @@
         .feature-item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 30px;
-            padding: 30px;
+            margin-bottom: 20px;
+            padding: 20px;
             background: rgba(108, 99, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 15px;
             transition: var(--transition);
-            border-left: 5px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .feature-item:hover::before {
-            left: 100%;
+            border-left: 4px solid transparent;
         }
 
         .dark-mode .feature-item {
@@ -439,10 +368,9 @@
         }
 
         .feature-item:hover {
-            transform: translateX(15px);
+            transform: translateX(8px);
             background: rgba(108, 99, 255, 0.1);
-            border-left: 5px solid var(--accent);
-            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.15);
+            border-left: 4px solid var(--accent);
         }
 
         .dark-mode .feature-item:hover {
@@ -450,17 +378,16 @@
         }
 
         .feature-icon {
-            font-size: 2rem;
-            margin-right: 25px;
-            min-width: 50px;
-            height: 50px;
+            font-size: 1.5rem;
+            margin-right: 20px;
+            min-width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
         }
 
         .feature-text {
@@ -470,43 +397,25 @@
         .feature-text strong {
             color: var(--primary);
             display: block;
-            margin-bottom: 10px;
-            font-size: 1.3rem;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
         .tech-stack {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
         }
 
         .tech-item {
             display: flex;
             align-items: center;
-            padding: 30px 25px;
+            padding: 20px;
             background: rgba(108, 99, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 15px;
             transition: var(--transition);
             border: 1px solid rgba(108, 99, 255, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tech-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient);
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .tech-item:hover::before {
-            opacity: 0.05;
         }
 
         .dark-mode .tech-item {
@@ -514,9 +423,8 @@
         }
 
         .tech-item:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             background: rgba(108, 99, 255, 0.1);
-            box-shadow: 0 15px 30px rgba(108, 99, 255, 0.2);
         }
 
         .dark-mode .tech-item:hover {
@@ -524,45 +432,37 @@
         }
 
         .tech-icon {
-            width: 60px;
-            height: 60px;
-            margin-right: 25px;
-            border-radius: 15px;
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
             color: white;
-            font-size: 1.8rem;
-            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        .tech-info {
-            position: relative;
-            z-index: 1;
+            font-size: 1.5rem;
         }
 
         .tech-info h4 {
             color: var(--primary);
-            margin-bottom: 8px;
-            font-size: 1.3rem;
+            margin-bottom: 5px;
+            font-size: 1.2rem;
             font-weight: 600;
         }
 
         .tech-info p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.8;
         }
 
         /* Architecture Section */
         .architecture {
             background: var(--card-bg);
-            padding: 60px 50px;
+            padding: 40px 35px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             transition: var(--transition);
             border: 1px solid rgba(108, 99, 255, 0.1);
             position: relative;
@@ -580,48 +480,33 @@
         }
 
         .architecture:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.15);
         }
 
         .architecture-diagram {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 50px 0;
+            margin: 35px 0;
         }
 
         .diagram-container {
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             position: relative;
         }
 
         .layer {
             display: flex;
             align-items: center;
-            margin-bottom: 35px;
-            padding: 35px 30px;
+            margin-bottom: 25px;
+            padding: 25px;
             background: rgba(108, 99, 255, 0.05);
-            border-radius: 20px;
+            border-radius: 15px;
             position: relative;
             transition: var(--transition);
-            border-left: 5px solid transparent;
-        }
-
-        .layer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.1), transparent);
-            transition: 0.5s;
-        }
-
-        .layer:hover::before {
-            left: 100%;
+            border-left: 4px solid transparent;
         }
 
         .dark-mode .layer {
@@ -629,35 +514,22 @@
         }
 
         .layer:hover {
-            transform: translateX(15px);
+            transform: translateX(8px);
             background: rgba(108, 99, 255, 0.1);
-            border-left: 5px solid var(--accent);
-            box-shadow: 0 10px 25px rgba(108, 99, 255, 0.15);
-        }
-
-        .layer::after {
-            content: '';
-            position: absolute;
-            left: -30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 3px;
-            background: var(--accent);
+            border-left: 4px solid var(--accent);
         }
 
         .layer-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 16px;
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
             color: white;
-            font-size: 2rem;
-            margin-right: 30px;
-            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.3);
+            font-size: 1.5rem;
+            margin-right: 20px;
         }
 
         .layer-content {
@@ -666,13 +538,13 @@
 
         .layer-content h4 {
             color: var(--primary);
-            margin-bottom: 10px;
-            font-size: 1.4rem;
+            margin-bottom: 8px;
+            font-size: 1.3rem;
             font-weight: 600;
         }
 
         .layer-content p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             opacity: 0.8;
             line-height: 1.6;
         }
@@ -682,9 +554,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 60px 0;
+            margin: 40px 0;
             flex-wrap: wrap;
-            gap: 50px;
+            gap: 30px;
         }
 
         .audio-flow {
@@ -697,81 +569,56 @@
         }
 
         .audio-flow:hover {
-            transform: translateY(-15px);
+            transform: translateY(-8px);
         }
 
         .audio-node {
-            width: 120px;
-            height: 120px;
+            width: 90px;
+            height: 90px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--gradient);
             color: white;
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.4);
+            font-size: 2rem;
+            margin-bottom: 15px;
             transition: var(--transition);
             position: relative;
             overflow: hidden;
         }
 
-        .audio-node::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
-            transform: rotate(45deg);
-            transition: 0.5s;
-        }
-
-        .audio-node:hover::before {
-            animation: shine 1.5s;
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
         .audio-node:hover {
-            transform: scale(1.15);
-            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.5);
+            transform: scale(1.1);
         }
 
         .audio-arrow {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: var(--accent);
-            margin: 20px 0;
+            margin: 15px 0;
             transition: var(--transition);
-            text-shadow: 0 5px 15px rgba(255, 101, 132, 0.3);
         }
 
         .audio-arrow:hover {
-            transform: scale(1.3);
+            transform: scale(1.2);
         }
 
         .audio-label {
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 600;
             color: var(--primary);
             background: rgba(108, 99, 255, 0.1);
-            padding: 12px 20px;
-            border-radius: 25px;
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
         }
 
         /* Project Outcome */
         .project-outcome {
             background: var(--card-bg);
-            padding: 60px 50px;
+            padding: 40px 35px;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            margin-bottom: 80px;
+            margin-bottom: 60px;
             transition: var(--transition);
             border: 1px solid rgba(108, 99, 255, 0.1);
             position: relative;
@@ -789,17 +636,17 @@
         }
 
         .project-outcome:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(108, 99, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.15);
         }
 
         .outcome-content {
-            font-size: 1.2rem;
-            line-height: 1.8;
+            font-size: 1.1rem;
+            line-height: 1.7;
         }
 
         .outcome-content p {
-            margin-bottom: 30px;
+            margin-bottom: 20px;
         }
 
         .highlight {
@@ -813,86 +660,72 @@
 
         .project-actions {
             display: flex;
-            gap: 30px;
+            gap: 20px;
             justify-content: center;
-            margin-top: 60px;
+            margin-top: 40px;
             flex-wrap: wrap;
         }
 
         .btn {
-            padding: 18px 40px;
+            padding: 14px 30px;
             border-radius: 50px;
             font-weight: 600;
             transition: var(--transition);
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            font-size: 1.1rem;
+            gap: 8px;
+            font-size: 1rem;
             border: none;
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: 0.5s;
-        }
-
-        .btn:hover::before {
-            left: 100%;
         }
 
         .btn-primary {
             background: var(--gradient-accent);
             color: white;
-            box-shadow: 0 8px 25px rgba(255, 101, 132, 0.4);
         }
 
         .btn-primary:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(255, 101, 132, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 101, 132, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
             color: var(--primary);
             border: 2px solid var(--primary);
-            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.2);
         }
 
         .btn-secondary:hover {
             background: var(--primary);
             color: white;
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(108, 99, 255, 0.3);
+            transform: translateY(-5px);
         }
 
         /* Footer */
         footer { 
             text-align:center; 
-            padding:50px 25px; 
+            padding:35px 25px; 
             background: var(--gradient);
             color:white; 
-            font-size: 1.1rem;
-            margin-top: 40px;
+            font-size: 1rem;
         }
 
-        footer p {
-            opacity: 0.9;
-            font-weight: 300;
+        /* Simple fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Responsive */
         @media(max-width:968px){
             header {
-                padding: 15px 5%;
+                padding: 12px 5%;
             }
             
             .nav-links {
@@ -900,11 +733,11 @@
             }
             
             .project-header h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .project-header p {
-                font-size: 1.3rem;
+                font-size: 1.2rem;
             }
             
             .project-actions {
@@ -921,46 +754,11 @@
             }
             
             .section-title {
-                font-size: 2rem;
+                font-size: 1.8rem;
             }
         }
 
         @media(max-width:768px){
-            .project-header h1 {
-                font-size: 2.5rem;
-            }
-            
-            .project-header p {
-                font-size: 1.2rem;
-            }
-            
-            .nav-links a {
-                font-size: 1rem;
-            }
-            
-            .project-features, .project-tech, .architecture, .project-outcome {
-                padding: 40px 30px;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
-            .feature-item, .tech-item, .layer {
-                padding: 25px;
-            }
-            
-            .floating-github {
-                bottom: 25px;
-                right: 25px;
-            }
-        }
-
-        @media(max-width:480px){
-            .project-header {
-                padding: 80px 25px;
-            }
-            
             .project-header h1 {
                 font-size: 2rem;
             }
@@ -969,16 +767,51 @@
                 font-size: 1.1rem;
             }
             
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .project-features, .project-tech, .architecture, .project-outcome {
+                padding: 30px 25px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .feature-item, .tech-item, .layer {
+                padding: 18px;
+            }
+            
+            .floating-github {
+                bottom: 20px;
+                right: 20px;
+            }
+        }
+
+        @media(max-width:480px){
+            .project-header {
+                padding: 60px 20px;
+            }
+            
+            .project-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .project-header p {
+                font-size: 1rem;
+            }
+            
             .project-icon {
-                font-size: 4.5rem;
+                font-size: 4rem;
             }
             
             .logo {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
             
             .logo i {
-                font-size: 1.7rem;
+                font-size: 1.6rem;
             }
             
             .nav-links {
@@ -986,20 +819,20 @@
             }
             
             #mode-toggle {
-                width: 40px;
-                height: 40px;
+                width: 35px;
+                height: 35px;
                 font-size: 1.1rem;
             }
             
             .floating-github {
-                bottom: 20px;
-                right: 20px;
+                bottom: 15px;
+                right: 15px;
             }
             
             .floating-github .github-btn {
-                width: 60px;
-                height: 60px;
-                padding: 15px;
+                width: 50px;
+                height: 50px;
+                padding: 12px;
             }
         }
     </style>
@@ -1007,14 +840,14 @@
 <body>
 
 <header>
-    <a href="index.html" class="logo">
+    <a href="index.htm" class="logo">
         <i class="fas fa-code"></i>
         <span>Sunny Bharti</span>
     </a>
     <div class="nav-links">
-        <a href="index.html">Home</a>
-        <a href="index.html#projects">Projects</a>
-        <a href="index.html#contact">Contact</a>
+        <a href="index.htm">Home</a>
+        <a href="index.htm#projects">Projects</a>
+        <a href="index.htm#contact">Contact</a>
         <button id="mode-toggle">🌙</button>
     </div>
 </header>
@@ -1024,7 +857,6 @@
     <a href="https://github.com/sunnybharti072006/MusicApp.git" target="_blank" class="github-btn">
         <i class="fab fa-github"></i>
         <span>View Code</span>
-        <div class="pulse"></div>
     </a>
 </div>
 
@@ -1043,15 +875,14 @@
                 <a href="https://github.com/sunnybharti072006/MusicApp.git" target="_blank" class="github-btn">
                     <i class="fab fa-github"></i>
                     <span>Explore Source Code on GitHub</span>
-                    <div class="pulse"></div>
                 </a>
-                <p style="margin-top: 20px; opacity: 0.9; font-size: 1.2rem; font-weight: 300;">Dive into the code and see how it works!</p>
+                <p style="margin-top: 15px; opacity: 0.9; font-size: 1.1rem; font-weight: 300;">Dive into the code and see how it works!</p>
             </div>
         </div>
     </div>
 
     <div class="project-content">
-        <div class="project-features">
+        <div class="project-features fade-in">
             <h2 class="section-title">Key Features</h2>
             <ul class="features-list">
                 <li class="feature-item">
@@ -1099,7 +930,7 @@
             </ul>
         </div>
 
-        <div class="project-tech">
+        <div class="project-tech fade-in">
             <h2 class="section-title">Tech Stack</h2>
             <div class="tech-stack">
                 <div class="tech-item">
@@ -1161,9 +992,9 @@
     </div>
 
     <!-- Architecture Section -->
-    <div class="architecture">
+    <div class="architecture fade-in">
         <h2 class="section-title">System Architecture</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">The Music Player App follows a layered architecture with clear separation of concerns:</p>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">The Music Player App follows a layered architecture with clear separation of concerns:</p>
         
         <div class="architecture-diagram">
             <div class="diagram-container">
@@ -1193,7 +1024,7 @@
                     </div>
                     <div class="layer-content">
                         <h4>Audio Engine Layer</h4>
-                        <p>Custom DSP algorithms for crossfade, equalization, and real-time audio processing</p>
+                        <p>Custom DSP algo for crossfade, equalization, and real-time audio processing</p>
                     </div>
                 </div>
                 
@@ -1211,9 +1042,9 @@
     </div>
 
     <!-- Crossfade Technology Section -->
-    <div class="architecture">
+    <div class="architecture fade-in">
         <h2 class="section-title">Crossfade Audio Technology</h2>
-        <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">The crossfade feature creates seamless transitions between tracks for uninterrupted listening:</p>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">The crossfade feature creates seamless transitions between tracks for uninterrupted listening:</p>
         
         <div class="crossfade-diagram">
             <div class="audio-flow">
@@ -1258,30 +1089,22 @@
             </div>
         </div>
         
-        <div style="text-align: center; margin-top: 50px;">
-            <p style="font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 25px; background: rgba(108, 99, 255, 0.1); padding: 15px 25px; border-radius: 15px; display: inline-block;">How Crossfade Works:</p>
-            <ul style="text-align: left; display: inline-block; margin-top: 20px; list-style: none;">
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
+        <div style="text-align: center; margin-top: 35px;">
+            <p style="font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 20px; background: rgba(108, 99, 255, 0.1); padding: 12px 20px; border-radius: 12px; display: inline-block;">How Crossfade Works:</p>
+            <ul style="text-align: left; display: inline-block; margin-top: 15px; list-style: none;">
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
                     Blends the ending of current track with beginning of next track
                 </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
                     Creates smooth transitions between songs of different genres and tempos
-                </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
-                    Eliminates abrupt silences or jarring cuts during playback
-                </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
-                    Customizable duration from 1 to 10 seconds based on user preference
                 </li>
             </ul>
         </div>
     </div>
 
-    <div class="project-outcome">
+    <div class="project-outcome fade-in">
         <h2 class="section-title">Project Outcome</h2>
         <div class="outcome-content">
             <p>
@@ -1290,7 +1113,7 @@
                 successfully delivers an enhanced listening experience for music enthusiasts.
             </p>
             <p>
-                Through this project, I implemented complex <span class="highlight">DSP algorithms</span> for real-time 
+                Through this project, I implemented complex <span class="highlight">DSP Algo</span> for real-time 
                 audio manipulation while maintaining optimal performance on mobile devices. The crossfade 
                 feature effectively creates seamless transitions between tracks, eliminating disruptive 
                 pauses during playback.
@@ -1301,36 +1124,36 @@
                 and background services.
             </p>
             
-            <h3 style="margin-top: 40px; color: var(--primary); font-size: 1.6rem; margin-bottom: 25px;">Technical Achievements:</h3>
-            <ul style="margin-top: 20px; padding-left: 20px; list-style: none;">
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
-                    Implemented real-time audio processing with 20ms latency
+            <h3 style="margin-top: 30px; color: var(--primary); font-size: 1.4rem; margin-bottom: 20px;">Technical Achievements:</h3>
+            <ul style="margin-top: 15px; padding-left: 20px; list-style: none;">
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Implemented real-time audio processing with Low latency
                 </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
-                    Designed custom crossfade algorithm with adjustable parameters
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Designed custom crossfade algorithm
                 </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
                     Achieved 60 FPS smooth UI with complex audio operations
                 </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
                     Optimized battery consumption during continuous playback
                 </li>
-                <li style="margin-bottom: 15px; padding-left: 35px; position: relative; font-size: 1.1rem;">
-                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.3rem; top: 2px;"></i>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-star" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
                     Integrated with Android MediaStore for seamless file access
                 </li>
             </ul>
         </div>
         
         <div class="project-actions">
-            <a href="index.html#projects" class="btn btn-primary">
+            <a href="index.htm#projects" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to Projects
             </a>
-            <a href="index.html#contact" class="btn btn-secondary">
+            <a href="index.htm#contact" class="btn btn-secondary">
                 <i class="fas fa-paper-plane"></i> Get In Touch
             </a>
         </div>
@@ -1347,49 +1170,46 @@ const toggle = document.getElementById('mode-toggle');
 toggle.addEventListener('click', () => {
     document.body.classList.toggle('dark-mode');
     toggle.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+    localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
 });
 
-// Add animation to elements when they come into view
-document.addEventListener('DOMContentLoaded', function() {
-    const animatedElements = document.querySelectorAll('.feature-item, .tech-item, .layer, .audio-flow');
+// Check for saved dark mode preference
+if (localStorage.getItem('darkMode') === 'true') {
+    document.body.classList.add('dark-mode');
+    toggle.textContent = '☀️';
+}
+
+// Fade in animation
+function initFadeIn() {
+    const fadeElements = document.querySelectorAll('.fade-in');
     
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
+                entry.target.classList.add('visible');
             }
         });
     }, { threshold: 0.1 });
     
-    animatedElements.forEach(item => {
-        item.style.opacity = '0';
-        item.style.transform = 'translateY(20px)';
-        item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(item);
+    fadeElements.forEach(el => {
+        observer.observe(el);
     });
-    
-    // Add parallax effect to project header
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        const parallax = document.querySelector('.project-header');
-        if (parallax) {
-            parallax.style.transform = `translateY(${scrolled * 0.4}px)`;
-        }
-    });
-    
-    // GitHub button special effects
-    const githubBtns = document.querySelectorAll('.github-btn');
-    githubBtns.forEach(btn => {
-        btn.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px) scale(1.05)';
-        });
-        
-        btn.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initFadeIn();
 });
+
+// Prevent zoom on double-tap (iOS)
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
 </script>
 
 </body>
