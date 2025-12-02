@@ -1,0 +1,1422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsDigest - Smart News App | Sunny Bharti</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset & Variables */
+        :root {
+            --primary: #2563EB;
+            --secondary: #1E40AF;
+            --accent: #10B981;
+            --news: #EF4444;
+            --github: #333333;
+            --github-hover: #000000;
+            --gradient: linear-gradient(135deg, #2563EB 0%, #1E40AF 100%);
+            --gradient-accent: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --news-gradient: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --github-gradient: linear-gradient(135deg, #333333 0%, #000000 100%);
+            --bg: #121212;
+            --text: #E2E8F0;
+            --card-bg: #1E1E1E;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            --transition: all 0.3s ease;
+            --radius: 16px;
+        }
+
+        .light-mode {
+            --primary: #2563EB;
+            --secondary: #1E40AF;
+            --accent: #10B981;
+            --news: #EF4444;
+            --github: #333333;
+            --github-hover: #000000;
+            --github-gradient: linear-gradient(135deg, #333333 0%, #000000 100%);
+            --bg: #F8FAFC;
+            --text: #1E293B;
+            --card-bg: #FFFFFF;
+            --shadow: 0 10px 30px rgba(37, 99, 235, 0.15);
+        }
+
+        * { 
+            margin:0; 
+            padding:0; 
+            box-sizing:border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            background-color: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a { 
+            text-decoration:none; 
+            color: inherit; 
+        }
+
+        /* Header */
+        header { 
+            position:fixed; 
+            top:0; 
+            width:100%; 
+            display:flex; 
+            justify-content:space-between; 
+            align-items:center; 
+            padding:15px 5%; 
+            z-index:1000; 
+            background:rgba(30, 30, 30, 0.95); 
+            backdrop-filter:blur(12px); 
+            transition: var(--transition);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .light-mode header { 
+            background: rgba(255, 255, 255, 0.95); 
+        }
+
+        .logo { 
+            font-size:1.6rem; 
+            font-weight:700; 
+            color:var(--primary); 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            padding: 6px 12px;
+            border-radius: 10px;
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .logo:hover {
+            transform: translateY(-2px);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .logo i {
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem;
+        }
+
+        .nav-links { 
+            display:flex; 
+            gap:25px; 
+            align-items: center;
+        }
+
+        .nav-links a { 
+            font-weight:500; 
+            transition:var(--transition); 
+            position: relative;
+            padding: 8px 0;
+            font-size: 1rem;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--news-gradient);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover { 
+            color: var(--news); 
+        }
+
+        #mode-toggle { 
+            margin-left:15px; 
+            cursor:pointer; 
+            border:none; 
+            background:none; 
+            font-size:1.2rem; 
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+        }
+
+        #mode-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* GitHub Button */
+        .github-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--github-gradient);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            overflow: hidden;
+            margin: 15px 0;
+            border: 2px solid transparent;
+        }
+
+        .github-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .github-btn i {
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+
+        .github-btn:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Floating GitHub Icon */
+        .floating-github {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-github .github-btn {
+            margin: 0;
+            padding: 15px;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-github .github-btn span {
+            display: none;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Project Detail Section */
+        .project-detail {
+            padding: 100px 5% 60px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 80px 30px;
+            background: var(--gradient);
+            border-radius: var(--radius);
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .project-header-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-icon {
+            font-size: 5rem;
+            margin-bottom: 25px;
+            color: white;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .project-header h1 {
+            font-size: 3rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        .project-header p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .github-section {
+            text-align: center;
+            margin: 40px 0 15px;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 968px) {
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .project-features, .project-tech {
+            background: var(--card-bg);
+            padding: 35px 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-features::before, .project-tech::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .project-features:hover, .project-tech:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--news-gradient);
+            border-radius: 10px;
+        }
+
+        .features-list {
+            list-style: none;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 15px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .light-mode .feature-item {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .feature-item:hover {
+            transform: translateX(8px);
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--news);
+        }
+
+        .light-mode .feature-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            margin-right: 20px;
+            min-width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            border-radius: 10px;
+            color: white;
+        }
+
+        .feature-text {
+            flex: 1;
+        }
+
+        .feature-text strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 15px;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .light-mode .tech-item {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .tech-item:hover {
+            transform: translateY(-5px);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .light-mode .tech-item:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            margin-right: 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .tech-info h4 {
+            color: var(--primary);
+            margin-bottom: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .tech-info p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* API Integration Section */
+        .api-integration {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .api-integration::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .api-integration:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+        }
+
+        .api-flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .api-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .api-flow:hover {
+            transform: translateY(-8px);
+        }
+
+        .api-node {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .api-node:hover {
+            transform: scale(1.1);
+        }
+
+        .api-arrow {
+            font-size: 2rem;
+            color: var(--news);
+            margin: 15px 0;
+            transition: var(--transition);
+        }
+
+        .api-arrow:hover {
+            transform: scale(1.2);
+        }
+
+        .api-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+        }
+
+        /* Smart Features Section */
+        .smart-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .feature-card {
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            text-align: center;
+        }
+
+        .light-mode .feature-card {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(37, 99, 235, 0.1);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+        }
+
+        .light-mode .feature-card:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .feature-card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            background: var(--gradient);
+            color: white;
+            font-size: 2rem;
+        }
+
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            font-weight: 600;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .architecture:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+        }
+
+        .architecture-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 35px 0;
+        }
+
+        .diagram-container {
+            width: 100%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .layer {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 25px;
+            background: rgba(37, 99, 235, 0.05);
+            border-radius: 15px;
+            position: relative;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .light-mode .layer {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .layer:hover {
+            transform: translateX(8px);
+            background: rgba(37, 99, 235, 0.1);
+            border-left: 4px solid var(--news);
+        }
+
+        .layer-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--gradient);
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 20px;
+        }
+
+        .layer-content {
+            flex: 1;
+        }
+
+        .layer-content h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 1.3rem;
+            font-weight: 600;
+        }
+
+        .layer-content p {
+            font-size: 1rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Android Screenshots */
+        .android-screenshots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .screenshot-container {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            background: var(--card-bg);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .screenshot-container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.2);
+        }
+
+        .screenshot {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .screenshot-placeholder {
+            width: 100%;
+            height: 500px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .screenshot-caption {
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Project Outcome */
+        .project-outcome {
+            background: var(--card-bg);
+            padding: 40px 35px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-outcome::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+        }
+
+        .project-outcome:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.15);
+        }
+
+        .outcome-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .outcome-content p {
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: var(--news-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+
+        .project-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--news-gradient);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer { 
+            text-align:center; 
+            padding:35px 25px; 
+            background: var(--gradient);
+            color:white; 
+            font-size: 1rem;
+        }
+
+        /* Simple fade-in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media(max-width:968px){
+            header {
+                padding: 12px 5%;
+            }
+            
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .project-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .project-header p {
+                font-size: 1.2rem;
+            }
+            
+            .project-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tech-stack {
+                grid-template-columns: 1fr;
+            }
+            
+            .api-flow-diagram {
+                flex-direction: column;
+            }
+            
+            .android-screenshots {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .smart-features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:768px){
+            .project-header h1 {
+                font-size: 2rem;
+            }
+            
+            .project-header p {
+                font-size: 1.1rem;
+            }
+            
+            .nav-links a {
+                font-size: 0.9rem;
+            }
+            
+            .project-features, .project-tech, .architecture, .project-outcome, .api-integration {
+                padding: 30px 25px;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .feature-item, .tech-item, .layer, .feature-card {
+                padding: 18px;
+            }
+            
+            .floating-github {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .screenshot, .screenshot-placeholder {
+                height: 400px;
+            }
+        }
+
+        @media(max-width:480px){
+            .project-header {
+                padding: 60px 20px;
+            }
+            
+            .project-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .project-header p {
+                font-size: 1rem;
+            }
+            
+            .project-icon {
+                font-size: 4rem;
+            }
+            
+            .logo {
+                font-size: 1.4rem;
+            }
+            
+            .logo i {
+                font-size: 1.6rem;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            #mode-toggle {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+            
+            .floating-github {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .floating-github .github-btn {
+                width: 50px;
+                height: 50px;
+                padding: 12px;
+            }
+            
+            .screenshot, .screenshot-placeholder {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.htm" class="logo">
+        <i class="fas fa-code"></i>
+        <span>Sunny Bharti</span>
+    </a>
+    <div class="nav-links">
+          <a href="index.htm">Home</a>
+        <a href="index.htm#projects">Projects</a>
+        <a href="index.htm#contact">Contact</a>
+        <button id="mode-toggle">☀️</button>
+    </div>
+</header>
+
+<!-- Floating GitHub Button -->
+<div class="floating-github">
+    <a href="https://github.com/sunnybharti072006/newsdigest" target="_blank" class="github-btn">
+        <i class="fab fa-github"></i>
+        <span>View Code</span>
+    </a>
+</div>
+
+<!-- Project Detail Section -->
+<section class="project-detail">
+    <div class="project-header">
+        <div class="project-header-content">
+            <div class="project-icon">
+                <i class="fas fa-newspaper"></i>
+            </div>
+            <h1>📰 NewsDigest - Real-Time News Aggregation App</h1>
+            <p>An Android news application built with Kotlin that fetches real-time news from APIs with dynamic time-based greetings and smart features</p>
+            
+            <!-- GitHub Button Section -->
+            <div class="github-section">
+                <a href="https://github.com/sunnybharti072006/newsdigest" target="_blank" class="github-btn">
+                    <i class="fab fa-github"></i>
+                    <span>Explore Source Code on GitHub</span>
+                </a>
+                <p style="margin-top: 15px; opacity: 0.9; font-size: 1.1rem; font-weight: 300;">Dive into the Kotlin code and see how real-time news fetching works!</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-content">
+        <div class="project-features fade-in">
+            <h2 class="section-title">Key Features</h2>
+            <ul class="features-list">
+                <li class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-text">
+                        <strong>Real-Time News Fetching</strong>
+                        <p>Fetches latest news from NewsAPI with automatic updates every hour</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">⏰</div>
+                    <div class="feature-text">
+                        <strong>Dynamic Time-Based Greetings</strong>
+                        <p>Automatically updates greeting message (Good Morning/Afternoon/Evening) based on device time</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">🌐</div>
+                    <div class="feature-text">
+                        <strong>Multiple API Integration</strong>
+                        <p>Integrated NewsAPI</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-text">
+                        <strong>Offline Reading</strong>
+                        <p>Caches news articles using Room Database for reading without internet</p>
+                    </div>
+                </li>
+                <li class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-text">
+    <strong>All  Categories</strong>
+    <p>Discover all the latest news in one place</p>
+</div>
+
+                </li>
+                
+            </ul>
+        </div>
+
+        <div class="project-tech fade-in">
+            <h2 class="section-title">Tech Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fab fa-android"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h4>Kotlin</h4>
+                        <p>Primary Android development language</p>
+                    </div>
+                </div>
+                
+                    
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h4>Retrofit</h4>
+                        <p>API integration</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h4>Modern Architecture</h4>
+                        <p>Clean architecture pattern</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h4>Material Design 3</h4>
+                        <p>Modern Android UI components</p>
+                    </div>
+                </div>
+                <div class="tech-item">
+                    <div class="tech-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="tech-info">
+                        <h4>Coroutines</h4>
+                        <p>Asynchronous programming</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Integration Section -->
+    <div class="api-integration fade-in">
+        <h2 class="section-title">API Integration & Real-Time Features</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">NewsDigest intelligently fetches and processes news data with time-sensitive features:</p>
+        
+        <div class="api-flow-diagram">
+            <div class="api-flow">
+                <div class="api-node">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="api-label">Device Time</div>
+                <div class="api-arrow">↓</div>
+                <div class="api-node">
+                    <i class="fas fa-comment"></i>
+                </div>
+                <div class="api-label">Dynamic Greeting</div>
+                <div class="api-arrow">↓</div>
+                <div class="api-node">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <div class="api-label">Auto Refresh</div>
+            </div>
+            
+            <div class="api-flow">
+                <div class="api-node">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="api-label">API Call</div>
+                <div class="api-arrow">↓</div>
+                <div class="api-node">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="api-label">Data Parsing</div>
+                <div class="api-arrow">↓</div>
+                <div class="api-node">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="api-label">Display News</div>
+            </div>
+        </div>
+        
+        <div class="smart-features">
+            <div class="feature-card">
+                <div class="feature-card-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>Intelligent Time Detection</h3>
+                <p>Automatically detects time of day and shows appropriate greetings: "Good Morning", "Good Afternoon", or "Good Evening"</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Real-Time Updates</h3>
+                <p>News automatically refreshes every hour using WorkManager to keep content always fresh and updated</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-card-icon">
+                    <i class="fas fa-network-wired"></i>
+                </div>
+                <h3>API Sources</h3>
+                <p>Integrates news APIs to ensure comprehensive coverage and backup sources for reliability</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 35px; padding: 25px; background: rgba(37, 99, 235, 0.05); border-radius: 15px;">
+            <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">Technical Implementation Details:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 20px;">
+                <div style="padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 10px;">
+                    <strong style="color: var(--accent);">Retrofit Implementation</strong>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Created NewsApiService interface with GET methods for fetching headlines, categories, and search results</p>
+                </div>
+                <div style="padding: 15px; background: rgba(239, 68, 68, 0.1); border-radius: 10px;">
+                    <strong style="color: var(--news);">Room Database Setup</strong>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Implemented Article Entity, DAO, and Database for offline caching and bookmark management</p>
+                </div>
+                <div style="padding: 15px; background: rgba(37, 99, 235, 0.1); border-radius: 10px;">
+                    <strong style="color: var(--primary);">Time-Based Logic</strong>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Used Calendar class to determine time of day and dynamically update greeting messages</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Android Screenshots Section -->
+    <div class="architecture fade-in">
+        <h2 class="section-title">App Interface</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">NewsDigest features a clean, Material Design 3 interface with intuitive navigation:</p>
+        
+        <div class="android-screenshots">
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="screenshot-caption">Home Screen with News Feed</div>
+            </div>
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="screenshot-caption">All Categories</div>
+            </div>
+            <div class="screenshot-container">
+                <div class="screenshot-placeholder">
+                    <i class="fas fa-bookmark"></i>
+                </div>
+                <div class="screenshot-caption">Dynamic Articles</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture Section -->
+    <div class="architecture fade-in">
+        <h2 class="section-title">Android Architecture</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 25px; opacity: 0.9;">NewsDigest follows modern Android development patterns:</p>
+        
+        <div class="architecture-diagram">
+            <div class="diagram-container">
+                <div class="layer">
+                    <div class="layer-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="layer-content">
+                        <h4>UI Layer (View)</h4>
+                        <p>Activities, Fragments with XML layouts using Material Design 3 components and RecyclerView for news listing</p>
+                    </div>
+                </div>
+                
+                <div class="layer">
+                    <div class="layer-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div class="layer-content">
+                        <h4>ViewModel Layer</h4>
+                        <p>NewsViewModel handles business logic, processes API responses, and manages LiveData for UI updates</p>
+                    </div>
+                </div>
+                
+                <div class="layer">
+                    <div class="layer-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="layer-content">
+                        <h4>Repository Layer</h>
+                        <p>Central data source that combines API calls</p>
+                    </div>
+                </div>
+                
+                <div class="layer">
+                    <div class="layer-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div class="layer-content">
+                        <h4>Data Sources</h4>
+                        <p>NewsAPI integration for real-time news, and time-based greeting logic</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="project-outcome fade-in">
+        <h2 class="section-title">Project Outcome & Technical Skills</h2>
+        <div class="outcome-content">
+            <p>
+                NewsDigest demonstrates my expertise in <span class="highlight">Android development with Kotlin, API integration, and real-time data handling</span>. 
+                The application successfully implements complex features like <span class="highlight">dynamic time-based greetings</span> and 
+                <span class="highlight">automatic news refreshing</span> while maintaining optimal performance.
+            </p>
+            <p>
+                Through this project, I mastered <span class="highlight">Retrofit for API calls</span>,
+                
+            </p>
+            <p>
+                The time-based greeting feature uses Android's Calendar class to intelligently update messages throughout the day, 
+                while the WorkManager ensures news stays current with periodic background updates.
+            </p>
+            
+            <h3 style="margin-top: 30px; color: var(--primary); font-size: 1.4rem; margin-bottom: 20px;">Technical Achievements:</h3>
+            <ul style="margin-top: 15px; padding-left: 20px; list-style: none;">
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Implemented real-time news fetching from NewsAPI
+                </li>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Created dynamic time-based greeting system that updates automatically throughout the day
+                </li>
+                
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Implemented WorkManager for periodic background news updates
+                </li>
+                <li style="margin-bottom: 12px; padding-left: 30px; position: relative; font-size: 1rem;">
+                    <i class="fas fa-check" style="color: var(--accent); position: absolute; left: 0; font-size: 1.1rem; top: 2px;"></i>
+                    Designed responsive UI with Material Design 3, dark/light theme, and smooth animations
+                </li>
+                
+            </ul>
+            
+           
+        </div>
+        
+        <div class="project-actions">
+            <a href="index.htm#projects" class="btn btn-primary">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+            <a href="index.htm#contact" class="btn btn-secondary">
+                <i class="fas fa-paper-plane"></i> Get In Touch
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2025 Sunny Bharti | Built with ❤️ using HTML, CSS & JS</p>
+</footer>
+
+<script>
+// Dark Mode Toggle (Reversed - Default is dark mode)
+const toggle = document.getElementById('mode-toggle');
+toggle.addEventListener('click', () => {
+    document.body.classList.toggle('light-mode');
+    toggle.textContent = document.body.classList.contains('light-mode') ? '🌙' : '☀️';
+    localStorage.setItem('lightMode', document.body.classList.contains('light-mode'));
+});
+
+// Check for saved light mode preference
+if (localStorage.getItem('lightMode') === 'true') {
+    document.body.classList.add('light-mode');
+    toggle.textContent = '🌙';
+} else {
+    // Default to dark mode
+    document.body.classList.remove('light-mode');
+    toggle.textContent = '☀️';
+}
+
+// Fade in animation
+function initFadeIn() {
+    const fadeElements = document.querySelectorAll('.fade-in');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    fadeElements.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initFadeIn();
+    
+    // Dynamic time greeting example (for demo purposes)
+    const timeGreeting = document.createElement('div');
+    timeGreeting.style.cssText = 'text-align: center; margin: 20px 0; padding: 15px; background: rgba(16, 185, 129, 0.1); border-radius: 12px;';
+    
+    const hour = new Date().getHours();
+    let greeting = "Good Evening!";
+    if (hour < 12) greeting = "Good Morning!";
+    else if (hour < 18) greeting = "Good Afternoon!";
+    
+    timeGreeting.innerHTML = `<strong style="color: var(--accent);">Example Time Detection:</strong> 
+    <span style="font-weight: 600; color: var(--primary);">"${greeting}"</span> 
+    <span style="opacity: 0.8;">(Current time: ${hour}:00)</span>`;
+    
+    // Insert after API integration section
+    const apiSection = document.querySelector('.api-integration');
+    if (apiSection) {
+        apiSection.insertBefore(timeGreeting, apiSection.querySelector('.smart-features'));
+    }
+});
+
+// Prevent zoom on double-tap (iOS)
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+        event.preventDefault();
+    }
+    lastTouchEnd = now;
+}, false);
+</script>
+
+</body>
+</html>
